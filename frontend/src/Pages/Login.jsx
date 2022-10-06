@@ -1,6 +1,6 @@
 import React from "react";
 import { Stack, TextField, Button } from "@mui/material";
-// import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useState } from "react";
 import { loginUser } from "../service/User-Service";
 import { useDispatch } from "react-redux";
@@ -10,16 +10,18 @@ export default React.memo(() => {
   const [authorName, setAuthorName] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
   const login = async () => {
     try {
       const userData = await loginUser({ authorName, password });
       console.log(userData);
       dispatch(setUserInfo(userData));
+
+
+      navigate("/editProfile");
     } catch (error) {
       console.log(error);
     }
-    // navigate('/editProfile')
   };
   return (
     <Stack

@@ -24,7 +24,7 @@ http.interceptors.request.use(
           withCredentials: true,
         });
 
-        return api.request(originalRequest);
+        return http.request(originalRequest);
       } catch (error) {
         console.log(error.message);
       }

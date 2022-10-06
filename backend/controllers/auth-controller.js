@@ -58,9 +58,9 @@ class AuthController {
       httpOnly: true,
     });
 
-    // send Response 
+    // send Response
     res.status(200).json({
-      message: 'token has been refreshed!'
+      message: "token has been refreshed!",
     });
   }
 
@@ -92,10 +92,25 @@ class AuthController {
       res.status(200).json({
         message: "user logged in",
         user: { authorName },
+        loggedIn: true,
       });
     } catch (err) {
       console.log(err);
     }
+  }
+
+  // Logout
+  async logout(req, res) {
+    const { refreshToken } = req.cookies;
+
+    // delete refresh token from db
+    await tokenService.removeToken(refreshToken);
+
+    // delete cookies
+    res.clearCookie("refreshToken");
+    res.clearCookie("accessToken");
+
+    res.status(200).json({ user: null, loggedIn: false });
   }
 }
 

@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import { Login, Profile } from './Pages'
+import { EditProfile, Login } from './Pages'
 
  function App() {
   return (
@@ -8,7 +8,7 @@ import { Login, Profile } from './Pages'
       <BrowserRouter>
         <Routes>
           <Route exact path="/" element={<Login />} />
-          <Route path="/editProfile" element={<Profile />} />
+          <Route path="/editProfile" element={<EditProfile />} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -25,6 +25,10 @@ class UserService {
       .update(data)
       .digest("hex");
   }
+
+  async findUser(filter){
+    return await userModel.findOne(filter)
+  }
 }
 
 module.exports = new UserService();

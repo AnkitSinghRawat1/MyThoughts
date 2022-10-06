@@ -9,16 +9,31 @@ const http = axios.create({
   },
 });
 
+// request interceptor
+
 http.interceptors.request.use(
   (config) => {
     return config;
   },
-  (error) => {
+  async (error) => {
     const originalRequest = error.config;
-    console.log(originalRequest);
+    if(error.response.status === 401 && originalRequest && !originalRequest._isRetry){
+      originalRequest._isRetry = true
+      try {
+        await axios.get(`${process.env.REACT_APP_API_URL}/api/refresh`, {
+          withCredentials: true,
+        });
+
+        return api.request(originalRequest);
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+    throw error
   }
 );
 
+// response interceptor
 http.interceptors.response.use(
   (res) => {
     return res.data

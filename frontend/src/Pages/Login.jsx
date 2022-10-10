@@ -6,6 +6,7 @@ import { loginUser } from "../service/User-Service";
 import { useDispatch } from "react-redux";
 import { setUserInfo } from "../store/userSlice";
 import styled from "styled-components";
+import myToaster from "../helper/myToaster";
 
 const Wrapper = styled.div`
   align-items: center;
@@ -22,9 +23,12 @@ export default React.memo(() => {
   const login = async () => {
     try {
       const userData = await loginUser({ authorName, password });
-      console.log(userData);
+      if(userData?.status == 401){
+        myToaster(userData?.message  , 1, 'unauthorized user found')
+        return
+      }
+      myToaster('Login successfull' , 2, 'use login')
       dispatch(setUserInfo(userData));
-
       navigate("/editProfile");
     } catch (error) {
       console.log(error);

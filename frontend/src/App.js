@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
+import Toaster from "./components/common/Toaster";
 import { EditProfile, Login } from "./Pages";
 import ProtectedRoutes from "./utility/ProtectedRoutes/ProtectedRoutes";
 
@@ -14,6 +15,7 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
+      <Toaster />
     </div>
   );
 }

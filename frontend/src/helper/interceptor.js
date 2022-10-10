@@ -36,10 +36,11 @@ http.interceptors.request.use(
 // response interceptor
 http.interceptors.response.use(
   (res) => {
+    console.log(res.data);
     return res.data
   },
   (error) => {
-    return error
+    return error.response.data
   }
 )
 

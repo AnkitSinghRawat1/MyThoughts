@@ -21,8 +21,7 @@ class UserService {
 
   // to check password
   async verifyPassword(userData, authorName, password) {
-    console.log("userData ----------> ", userData);
-    const verifiedPassword = this.createSecurePassword(authorName, password);
+    const verifiedPassword = await this.createSecurePassword(authorName, password);
 
     if (userData["password"] === verifiedPassword) {
       console.log('object', verifiedPassword);

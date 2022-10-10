@@ -95,6 +95,10 @@ class AuthController {
         loggedIn: true,
       });
     } catch (err) {
+      if (err?.status === 401) {
+        console.log(err.message);
+        res.send(err.status).json(err);
+      }
       console.log(err);
     }
   }

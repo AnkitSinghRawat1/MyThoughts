@@ -13,9 +13,24 @@ class UserService {
         password
       );
       return await userModel.create({ authorName, password: safePassword });
+    } else {
+      return this.verifyPassword(isAlreadyUser, authorName, password);
     }
 
-    return isAlreadyUser;
+  }
+
+  // to check password
+  async verifyPassword(userData, authorName, password) {
+    console.log("userData ----------> ", userData);
+    const verifiedPassword = this.createSecurePassword(authorName, password);
+
+    if (userData["password"] === verifiedPassword) {
+      console.log('object', verifiedPassword);
+      return userData
+    }
+
+
+    throw {message: 'Wrong Password', status : 401}
   }
 
   async createSecurePassword(userName, password) {
@@ -26,8 +41,8 @@ class UserService {
       .digest("hex");
   }
 
-  async findUser(filter){
-    return await userModel.findOne(filter)
+  async findUser(filter) {
+    return await userModel.findOne(filter);
   }
 }
 

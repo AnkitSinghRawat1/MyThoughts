@@ -9,7 +9,6 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route exact path="/" element={<Login />} />
-
           <Route path="/editProfile" element={<ProtectedRoutes />}>
             <Route path="/editProfile" element={<EditProfile />} />
           </Route>

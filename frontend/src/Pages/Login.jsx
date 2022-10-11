@@ -23,7 +23,7 @@ export default React.memo(() => {
   const login = async () => {
     try {
       const userData = await loginUser({ authorName, password });
-      if(userData?.status == 401){
+      if(userData?.status === 401){
         myToaster(userData?.message  , 1, 'unauthorized user found')
         return
       }

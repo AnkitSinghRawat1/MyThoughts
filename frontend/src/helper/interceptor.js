@@ -11,14 +11,20 @@ const http = axios.create({
 
 // request interceptor
 
-http.interceptors.request.use(
+http.interceptors.response.use(
   (config) => {
+    console.log("error");
     return config;
   },
   async (error) => {
+    console.log("er2");
     const originalRequest = error.config;
-    if(error.response.status === 401 && originalRequest && !originalRequest._isRetry){
-      originalRequest._isRetry = true
+    if (
+      error.response.status === 401 &&
+      originalRequest &&
+      !originalRequest._isRetry
+    ) {
+      originalRequest._isRetry = true;
       try {
         await axios.get(`${process.env.REACT_APP_API_URL}/api/refresh`, {
           withCredentials: true,
@@ -29,7 +35,7 @@ http.interceptors.request.use(
         console.log(error.message);
       }
     }
-    throw error
+    throw error;
   }
 );
 
@@ -37,11 +43,11 @@ http.interceptors.request.use(
 http.interceptors.response.use(
   (res) => {
     console.log(res.data);
-    return res.data
+    return res.data;
   },
   (error) => {
-    return error.response.data
+    return error.response.data;
   }
-)
+);
 
 export default http;

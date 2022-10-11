@@ -12,7 +12,7 @@ class UserService {
         authorName,
         password
       );
-      return await userModel.create({ authorName, password: safePassword });
+      return await userModel.create({ authorName, password: safePassword, aboutMe: '', avatar: '' });
     } else {
       return this.verifyPassword(isAlreadyUser, authorName, password);
     }
@@ -42,6 +42,10 @@ class UserService {
 
   async findUser(filter) {
     return await userModel.findOne(filter);
+  }
+
+  async updateUser(filter) {
+    return await userModel.updateOne(filter)
   }
 }
 
